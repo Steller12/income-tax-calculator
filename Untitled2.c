@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-// Define a structure to hold income and tax information
 typedef struct {
     float income;
     float tax;
@@ -11,9 +9,9 @@ typedef struct {
 int get_input(IncomeTax *it) {
     printf("Enter your income: ");
     if (scanf("%f", &(it->income)) != 1) {
-        return 0; // return 0 for invalid input
+        return 0;
     }
-    return 1; // return 1 for valid input
+    return 1;
 }
 
 // Calculation module function
@@ -29,7 +27,7 @@ void calculate_tax(IncomeTax *it) {
     } else {
         tax = 0.05 * 250000 + 0.2 * 500000 + 0.3 * (income - 1000000);
     }
-    it->tax = tax; // store calculated tax in the IncomeTax structure
+    it->tax = tax;
 }
 
 // Output module function
@@ -40,25 +38,25 @@ void display_output(IncomeTax *it) {
 // Error handling module function
 void handle_error() {
     printf("Error: Invalid input!\n");
-    exit(1); // exit the program with error status
+    exit(1);
 }
 
 // Data storage module function
 void save_data(IncomeTax *it) {
-    FILE *fp = fopen("tax_records.txt", "a"); // open file in append mode
+    FILE *fp = fopen("tax_records.txt", "a");
     if (fp == NULL) {
-        printf("Error: Unable to open file!\n");
+        printf("Error: Unable to open file\n");
         return;
     }
     fprintf(fp, "Income: %.2f, Tax: %.2f\n", it->income, it->tax);
-    fclose(fp); // close the file
+    fclose(fp);
 }
 
 // Main function
 int main() {
     IncomeTax it;
     if (!get_input(&it)) {
-        handle_error(); // invalid input
+        handle_error();
     }
     calculate_tax(&it);
     display_output(&it);
